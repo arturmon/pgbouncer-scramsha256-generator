@@ -16,6 +16,10 @@ import (
 
 // SCRAMSHA256 generates a SCRAM-SHA-256 hash
 func SCRAMSHA256(password string, iterations int) (string, error) {
+	// Validate iterations (must be greater than 0)
+	if iterations <= 0 {
+		return "", fmt.Errorf("iterations must be greater than 0")
+	}
 	// Generate a random 16-byte salt
 	salt := make([]byte, 16)
 	_, err := rand.Read(salt)
